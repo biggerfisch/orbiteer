@@ -19,14 +19,7 @@ class Calculatable(t.Protocol):
     def __mul__(self: C, other: float) -> C:
         ...
 
-    @t.overload()
-    def __truediv__(self: C, other: float) -> C:
-        ...
-
-    #  mypy @overload doesn't seem to be working. The override is needed or this all errors, but it also errors like
-    #  this sooooo
-    @t.overload()  # type: ignore
-    def __truediv__(self: C, other: C) -> float:  # noqa: F811
+    def __truediv__(self: C, other: C) -> float:
         ...
 
     def __lt__(self: C, other: C) -> bool:

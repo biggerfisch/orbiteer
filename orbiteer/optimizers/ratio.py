@@ -25,16 +25,11 @@ class RatioOptimizer(t.Generic[T], AbstractOptimizer[T]):
         Computes the direct ratio of where we are compared to where we want to be and uses it as a multiplier
         """
         last_output = self.outputs[-1]
-
-        # this is D U M B, but it makes mypy happy with required order of math ops promised by Calculatable
-        # and is the same as:
-        # = self.goal / last_output
-        # which mypy finds TERRIBLY offensive
-        direct_ratio = 1.0 / (last_output / self.goal)
+        direct_ratio = self.goal / measurement
 
         # This damps and equalizes the ratio as required
-        # TODO fix this so that it damps downwards corrections properly
-        multiplier = direct_ratio * self.damper
+        # Being damped by .X means that the change is only X% as strong. A damper of 0.5 would mean a 50% as strong mult
+        multiplier = 1 + (direct_ratio - 1) * self.damper
 
         return last_output * multiplier
 
