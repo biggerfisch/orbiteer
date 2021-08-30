@@ -52,3 +52,20 @@ disallow_untyped_calls = true
 explicit_package_bases = true
 disallow_incomplete_defs = true
 disallow_untyped_decorators = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+source = ["."]
+omit = [
+    "tests/*",
+]
+
+[tool.coverage.report]
+show_missing = true
