@@ -59,3 +59,9 @@ def test_measure_double_damped(damped_timedelta_ro: TimedeltaRatioOptimizer, sim
     next_range = damped_timedelta_ro.compute_next(200.0)
 
     assert next_range == (simple_first * 0.75)
+
+
+def test_measure_0_returns_last(timedelta_ro: TimedeltaRatioOptimizer, simple_first: timedelta) -> None:
+    next_range = timedelta_ro.compute_next(0)
+
+    assert next_range == simple_first

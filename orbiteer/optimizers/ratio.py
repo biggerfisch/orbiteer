@@ -22,9 +22,15 @@ class RatioOptimizer(t.Generic[T], AbstractOptimizer[T]):
 
     def _compute_next(self, measurement: float) -> T:
         """
-        Computes the direct ratio of where we are compared to where we want to be and uses it as a multiplier
+        Computes the direct ratio of where we are compared to where we want to be and uses it as a multiplier.
+
+        If the measurement is exactly zero, the last value will be returned again.
         """
         last_output = self.outputs[-1]
+
+        if measurement == 0.0:
+            return last_output
+
         direct_ratio = self.goal / measurement
 
         # This damps and equalizes the ratio as required
