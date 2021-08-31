@@ -49,13 +49,13 @@ def test_measure_double_halves(timedelta_ro: TimedeltaRatioOptimizer, simple_fir
     assert next_range == (simple_first / 2)
 
 
-def test_measure_half_damped(damped_timedelta_ro: TimedeltaRatioOptimizer, simple_first) -> None:
+def test_measure_half_damped(damped_timedelta_ro: TimedeltaRatioOptimizer, simple_first: timedelta) -> None:
     next_range = damped_timedelta_ro.compute_next(50.0)
 
     assert next_range == (simple_first * 1.5)
 
 
-def test_measure_double_damped(damped_timedelta_ro: TimedeltaRatioOptimizer, simple_first) -> None:
+def test_measure_double_damped(damped_timedelta_ro: TimedeltaRatioOptimizer, simple_first: timedelta) -> None:
     next_range = damped_timedelta_ro.compute_next(200.0)
 
     assert next_range == (simple_first * 0.75)
