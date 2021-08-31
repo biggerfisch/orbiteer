@@ -10,10 +10,15 @@ class DatetimeRangeIterator(AbstractRangeIterator[datetime, timedelta]):
     def __init__(self, *args: t.Any, left: datetime, right: datetime, **kwargs: t.Any) -> None:
         # default is new to old == left -> right
         self.reverse_order = kwargs.pop("reverse_order", False)
-        self.left = kwargs.pop("left")
-        self.right = kwargs.pop("right")
+        self.left = left
+        self.right = right
 
-        self.end = self.right if not self.reverse_order else self.left
+        if not self.reverse_order:
+            self.end = self.right
+            self.right = self.left
+        else:
+            self.end = self.left
+            self.left = self.right
 
         super().__init__(*args, **kwargs)
 
@@ -29,6 +34,6 @@ class DatetimeRangeIterator(AbstractRangeIterator[datetime, timedelta]):
 
     def _is_done(self) -> bool:
         if not self.reverse_order:
-            return self.right >= self.end
+            return self.left >= self.end
         else:
-            return self.left <= self.end
+            return self.right <= self.end
