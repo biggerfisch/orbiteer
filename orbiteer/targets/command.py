@@ -18,7 +18,7 @@ class CommandTarget(AbstractTarget):
 
     def _run_target(self, range_parameters: t.Iterable[str]) -> t.Optional[float]:
         # Its a waste to capture output if we're not using it for measurements
-        capture_output = self.measurement_strategy == TargetMeasurementStrategy.STDOUT
+        capture_output = self.measurement_strategy == TargetMeasurementStrategy.OUTPUT
         stdout = subprocess.run(
             [*self.command_line, *range_parameters],  # Given command plus the range parameters appended
             capture_output=capture_output,
@@ -28,6 +28,7 @@ class CommandTarget(AbstractTarget):
 
         # stdout _can_ be None, despite current mypy restrictions
         # https://github.com/python/typeshed/blob/bc19a28c0dd4876788bd9a5a0deedc20211cd9af/stdlib/subprocess.pyi#L43
+        # TODO return based on capture_output instead - we want errors if none and should not be
         if stdout is not None:
             return float(stdout)
         else:

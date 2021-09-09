@@ -9,8 +9,8 @@ from orbiteer.iterators import RT
 
 
 class TargetMeasurementStrategy(enum.Enum):
-    DURATION = "Duration"
-    STDOUT = "stdout"
+    DURATION = "duration"
+    OUTPUT = "output"
 
 
 class AbstractTarget(ABC):
@@ -36,14 +36,14 @@ class AbstractTarget(ABC):
         Runs the target and returns the ...
         """
         time_before_run = time.time()
-        stdout = self._run_target([str(rp) for rp in range_parameters])
+        output = self._run_target([str(rp) for rp in range_parameters])
         duration = time.time() - time_before_run
 
         if self.measurement_strategy == TargetMeasurementStrategy.DURATION:
             return duration
-        elif self.measurement_strategy == TargetMeasurementStrategy.STDOUT:
-            if stdout is not None:
-                return stdout
+        elif self.measurement_strategy == TargetMeasurementStrategy.OUTPUT:
+            if output is not None:
+                return output
             else:
                 return 0
         else:
