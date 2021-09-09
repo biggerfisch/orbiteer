@@ -1,6 +1,6 @@
 # Orbiteer
 
-A tool to control time-range based scripts
+A tool to control time-range based scripts, programs, and more.
 
 # Goals
 
@@ -29,17 +29,17 @@ A tool to control time-range based scripts
   - :red_square: Sorted
 
 ### Target Measurement
-- :yellow_square: Direct time taken by command
-- :yellow_square: Number returned by command
+- :white_check_mark: Direct time taken by command
+- :white_check_mark: Number returned by command
 
 ### Optimization Strategy
-- :yellow_square: Direct ratio
-  - :yellow_square: With damping
+- :white_check_mark: Direct ratio
+  - :white_check_mark: With damping
 - :red_square: PID
 
 ### Targets
-- :yellow_square: Run command line
-  - :yellow_square: Args at end of command string
+- :white_check_mark: Run command line
+  - :white_check_mark: Args at end of command string
   - :red_square: Command line formatting
 - :red_square: Call URL
   - :red_square: Via request parameters
@@ -47,7 +47,7 @@ A tool to control time-range based scripts
 - :red_square: Append to file
 
 ### Failure retries
-- :yellow_square: Quit
+- :white_check_mark: Quit
 - :red_square: N retries (before quit)
   - :red_square: Immediately
   - :red_square: Timed wait
