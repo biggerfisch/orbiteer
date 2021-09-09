@@ -66,3 +66,25 @@ A tool to control time-range based scripts, programs, and more.
 - :yellow_square: Erroring out
 - :red_square: N% completion
 - :red_square: Time passed
+
+
+# Development
+
+## Setup
+1. Install [Poetry](https://python-poetry.org/docs/#installation)
+2. Run `poetry install`
+
+## Check lint & formatting
+```
+./scripts/lint.sh
+```
+
+## Fix formatting
+```
+./scripts/format.sh
+```
+
+## Run tests & view coverage
+```
+./scripts/test.sh
+```
