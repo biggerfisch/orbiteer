@@ -1,0 +1,51 @@
+name: Orbiteer Checks
+
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+  workflow_dispatch:
+
+
+jobs:
+  lint:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ 'ubuntu-latest' ]
+        python-version: [ '3.7', '3.8', '3.9' ]
+        poetry-version: [ '1.1.8' ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: ${{ matrix.poetry-version }}
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Load Cache
+        id: cached-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          # Increment number at end to force a cache miss
+          key: venv-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.poetry-version }}-${{ hashFiles('poetry.lock') }}-0
+
+      # TODO: Use a script that allows passing --no-interaction
+      - name: Install dependencies
+        if: steps.cached-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interation
+
+      - name: Run lint
+        run: |
+          source .venv/bin/activate
+          ./scripts/lint.sh
