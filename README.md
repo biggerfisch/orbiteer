@@ -72,7 +72,7 @@ A tool to control time-range based scripts, programs, and more.
 
 ## Setup
 1. Install [Poetry](https://python-poetry.org/docs/#installation)
-2. Run `poetry install`
+2. Run `./scripts/setup.sh`
 
 ## Check lint & formatting
 ```
