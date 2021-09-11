@@ -2,10 +2,13 @@
 
 import typing as t
 
+# When python3.7 support is dropped, this can revert to typing module
+from typing_extensions import Protocol
+
 C = t.TypeVar("C", bound="Calculatable")
 
 
-class Calculatable(t.Protocol):
+class Calculatable(Protocol):
     """
     Used to signify types that can have basic mathematic calculations done on them
     """
