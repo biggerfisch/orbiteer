@@ -1,18 +1,24 @@
 #!/usr/bin/env python
 
 import typing as t
-from datetime import timedelta
 
-from .base import AbstractOptimizer, T
+from .base import AbstractOptimizer
 
 
-class RatioOptimizer(t.Generic[T], AbstractOptimizer[T]):
+class RatioOptimizer(AbstractOptimizer):
+    """
+    The Ratio optimizer simply takes the last measurement and the goal measurement, and uses the ratio found to modify
+    the last interval computed.
+
+    Optionally, a damper can be used to limit the magnitude of effect.
+    """
+
     def __init__(
         self,
         goal: float,
-        first_value: T,
-        max_value: t.Optional[T] = None,
-        min_value: t.Optional[T] = None,
+        first_value: float,
+        max_value: t.Optional[float] = None,
+        min_value: t.Optional[float] = None,
         damper: float = 1.0,  # Should be less than 1.0 to have damping effect
     ) -> None:
         # We need to specify all parent args in order for generic type checking to work
@@ -20,7 +26,7 @@ class RatioOptimizer(t.Generic[T], AbstractOptimizer[T]):
 
         self.damper = damper
 
-    def _compute_next(self, measurement: float) -> T:
+    def _compute_next(self, measurement: float) -> float:
         """
         Computes the direct ratio of where we are compared to where we want to be and uses it as a multiplier.
 
@@ -38,7 +44,3 @@ class RatioOptimizer(t.Generic[T], AbstractOptimizer[T]):
         multiplier = 1 + (direct_ratio - 1) * self.damper
 
         return last_output * multiplier
-
-
-# Some defs with generics pre-filled to avoid detection issues
-TimedeltaRatioOptimizer = RatioOptimizer[timedelta]

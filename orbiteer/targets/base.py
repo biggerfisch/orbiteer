@@ -5,7 +5,12 @@ import time
 import typing as t
 from abc import ABC, abstractmethod
 
-from orbiteer.iterators import RT
+from typing_extensions import Protocol
+
+
+class Stringable(Protocol):
+    def __str__(self) -> str:
+        ...
 
 
 class TargetMeasurementStrategy(enum.Enum):
@@ -31,7 +36,7 @@ class AbstractTarget(ABC):
         Runs the target and returns its output
         """
 
-    def run(self, range_parameters: t.Iterable[RT]) -> float:
+    def run(self, range_parameters: t.Iterable[Stringable]) -> float:
         """
         Runs the target and returns the ...
         """

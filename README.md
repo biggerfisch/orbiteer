@@ -20,8 +20,8 @@ A tool to control time-range based scripts, programs, and more.
 | :yellow_square: | In progress |
 | :red_square: | Not yet begun |
 
-### Iteration:
-- :yellow_square: Iterate over datetime range
+### Input Generation:
+- :yellow_square: Datetime range
   - :yellow_square: Old -> New
   - :yellow_square: New -> Old
 - :red_square: Iterate over item chunks
