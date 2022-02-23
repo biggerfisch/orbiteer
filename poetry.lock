@@ -84,14 +84,14 @@ toml = ["tomli"]
 
 [[package]]
 name = "dlint"
-version = "0.11.0"
+version = "0.12.0"
 description = "Dlint is a tool for encouraging best coding practices and helping ensure Python code is secure."
 category = "dev"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-flake8 = ">=3.6.0,<4.0.0"
+flake8 = ">=3.6.0,<5.0.0"
 
 [[package]]
 name = "eradicate"
@@ -395,7 +395,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4.0"
-content-hash = "1c1e2e25c386a77da334a9e269da2c1ada53bac9186f394a5f73907976013a7f"
+content-hash = "2ad4ac3af0680ac214f8aa8ce047ddb48000e0374b625abc5b34cc9aeb29fbec"
 
 [metadata.files]
 atomicwrites = [
@@ -462,7 +462,7 @@ coverage = [
     {file = "coverage-6.3.2.tar.gz", hash = "sha256:03e2a7826086b91ef345ff18742ee9fc47a6839ccd517061ef8fa1976e652ce9"},
 ]
 dlint = [
-    {file = "dlint-0.11.0-py2.py3-none-any.whl", hash = "sha256:e7297325f57e6b5318d88fba2497f9fea6830458cd5aecb36150856db010f409"},
+    {file = "dlint-0.12.0-py3-none-any.whl", hash = "sha256:344823d299439aa94fe276b2b3b90733026787d25713c664e137cf5f7d0645f7"},
 ]
 eradicate = [
     {file = "eradicate-2.0.0.tar.gz", hash = "sha256:27434596f2c5314cc9b31410c93d8f7e8885747399773cd088d3adea647a60c8"},
