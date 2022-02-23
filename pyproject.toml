@@ -19,7 +19,7 @@ flake8-comprehensions = "^3.7.0"
 flake8-eradicate = "^1.2.0"
 mypy = "^0.931"
 black = "^22.1.0"
-isort = "^5.9.3"
+isort = "^5.10.1"
 pytest = "^6.2.4"
 
 [build-system]
