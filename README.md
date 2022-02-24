@@ -21,9 +21,9 @@ A tool to control time-range based scripts, programs, and more.
 | :red_square: | Not yet begun |
 
 ### Input Generation:
-- :yellow_square: Datetime range
-  - :yellow_square: Old -> New
-  - :yellow_square: New -> Old
+- :white_check_mark: Datetime range
+  - :white_check_mark: Old -> New
+  - :white_check_mark: New -> Old
 - :red_square: Iterate over item chunks
   - :red_square: In presented order
   - :red_square: Sorted
