@@ -76,15 +76,20 @@ A tool to control time-range based scripts, programs, and more.
 
 ## Check lint & formatting
 ```
-./scripts/lint.sh
+make lint
 ```
 
 ## Fix formatting
 ```
-./scripts/format.sh
+make format
 ```
 
 ## Run tests & view coverage
 ```
-./scripts/test.sh
+make test
+```
+
+## Check lint & run tests
+```
+make
 ```
