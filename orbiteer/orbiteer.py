@@ -17,7 +17,9 @@ class Orbiteer:
     def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         self.target = self.make_target(**self._filter_kwargs("target", **kwargs))
         self.optimizer = self.make_optimizer(**self._filter_kwargs("optimizer", **kwargs))
-        self.inputgenerator = self.make_inputgenerator(**self._filter_kwargs("inputgenerator", **kwargs))
+        self.inputgenerator = self.make_inputgenerator(
+            optimizer=self.optimizer, **self._filter_kwargs("inputgenerator", **kwargs)
+        )
 
         self.runner = runner.OrbiteerRunner(self.inputgenerator, self.target)
 
@@ -25,41 +27,54 @@ class Orbiteer:
         self.runner.run()
 
     def make_target(self, **kwargs: t.Any) -> targets.AbstractTarget:
-        target_type = self._get_required_kwarg_or_raise("target_type", **kwargs)
+        target_type = self._pop_required_kwarg_or_raise("type", kwargs, "command")
 
         if target_type.lower() == "command":
             target_class = targets.CommandTarget
         else:
-            raise RuntimeError(f"Invalid target_type: {target_type}")
+            raise RuntimeError(f"Invalid target_type: {type}")
 
-        return target_class(**kwargs)
+        try:
+            return target_class(**kwargs)
+        except TypeError as e:
+            raise RuntimeError("Failed to create Target class") from e
 
     def make_optimizer(self, **kwargs: t.Any) -> optimizers.AbstractOptimizer:
-        optimizer_type = self._get_required_kwarg_or_raise("optimizer_type", **kwargs)
+        optimizer_type = self._pop_required_kwarg_or_raise("type", kwargs, "ratio")
 
         if optimizer_type.lower() == "ratio":
             optimizer_class = optimizers.RatioOptimizer
         else:
-            raise RuntimeError(f"Invalid optimizer_type: {optimizer_type}")
+            raise RuntimeError(f"Invalid optimizer_type: {type}")
 
-        return optimizer_class(**kwargs)
+        try:
+            return optimizer_class(**kwargs)
+        except TypeError as e:
+            raise RuntimeError("Failed to create Optimizer class") from e
 
     def make_inputgenerator(self, **kwargs: t.Any) -> inputgenerators.AbstractInputGenerator[t.Any]:
-        inputgenerator_type = self._get_required_kwarg_or_raise("inputgenerator_type", **kwargs)
+        inputgenerator_type = self._pop_required_kwarg_or_raise("type", kwargs)
 
         name = inputgenerator_type.lower()
         if name in self.input_generator_name_map:
             inputgenerator_class = self.input_generator_name_map[name]
         else:
-            raise RuntimeError(f"Invalid inputgenerator_type: {inputgenerator_type}")
+            raise RuntimeError(f"Invalid inputgenerator_type: {type}")
 
-        return inputgenerator_class(**kwargs)
+        try:
+            return inputgenerator_class(**kwargs)
+        except TypeError as e:
+            raise RuntimeError("Failed to create InputGenerator class") from e
 
     def _filter_kwargs(self, prefix: str, **kwargs: t.Any) -> t.Dict[str, t.Any]:
-        return {key: value for key, value in kwargs.items() if key.startswith(prefix)}
+        # When python3.8 support is dropped, can use str.removeprefix(). Until then, this slices the prefix and trailing
+        # underscore from the kwarg key
+        key_offset = len(prefix) + 1
+        return {key[key_offset:]: value for key, value in kwargs.items() if key.startswith(prefix)}
 
-    def _get_required_kwarg_or_raise(self, key: str, **kwargs: t.Any) -> t.Any:
-        value = kwargs.get(key)
+    def _pop_required_kwarg_or_raise(self, key: str, kwargs: t.Dict[str, t.Any], default: t.Any = None) -> t.Any:
+        value = kwargs.pop(key, default)
         if value is None:
             raise RuntimeError(f"Missing required argument: {key}")
+
         return value

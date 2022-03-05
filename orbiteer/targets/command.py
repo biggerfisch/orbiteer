@@ -7,8 +7,15 @@ from .base import AbstractTarget, TargetMeasurementStrategy
 
 
 class CommandTarget(AbstractTarget):
-    def __init__(self, measurement_strategy: TargetMeasurementStrategy, command_line: t.List[str]) -> None:
+    def __init__(
+        self,
+        measurement_strategy: TargetMeasurementStrategy = TargetMeasurementStrategy.DURATION,
+        command_line: t.Optional[t.List[str]] = None,
+    ) -> None:
         super().__init__(measurement_strategy)
+
+        if command_line is None:
+            raise ValueError("command_line must be present")
 
         self.command_line = command_line
 

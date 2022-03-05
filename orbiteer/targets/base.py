@@ -23,7 +23,7 @@ class AbstractTarget(ABC):
     Targets are anything that do something with a set of inputs.
     """
 
-    def __init__(self, measurement_strategy: TargetMeasurementStrategy) -> None:
+    def __init__(self, measurement_strategy: TargetMeasurementStrategy = TargetMeasurementStrategy.DURATION) -> None:
         self.measurement_strategy = measurement_strategy
 
     @property
