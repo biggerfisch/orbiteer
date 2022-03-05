@@ -7,20 +7,16 @@ from .base import AbstractTarget, TargetMeasurementStrategy
 
 
 class CommandTarget(AbstractTarget):
-    def __init__(
-        self,
-        measurement_strategy: TargetMeasurementStrategy,
-        command_line: t.List[str],
-    ) -> None:
+    def __init__(self, measurement_strategy: TargetMeasurementStrategy, command_line: t.List[str]) -> None:
         super().__init__(measurement_strategy)
 
         self.command_line = command_line
 
-    def _run_target(self, range_parameters: t.Iterable[str]) -> t.Optional[float]:
+    def _run_target(self, inputs: t.Iterable[str]) -> t.Optional[float]:
         # Its a waste to capture output if we're not using it for measurements
         capture_output = self.measurement_strategy == TargetMeasurementStrategy.OUTPUT
         stdout = subprocess.run(
-            [*self.command_line, *range_parameters],  # Given command plus the range parameters appended
+            [*self.command_line, *inputs],  # Given command plus the range parameters appended
             capture_output=capture_output,
             check=True,  # Raises an error if the command fails
             text=True,  # If we have stdout, forces it into str form

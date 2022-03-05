@@ -19,6 +19,10 @@ class TargetMeasurementStrategy(enum.Enum):
 
 
 class AbstractTarget(ABC):
+    """
+    Targets are anything that do something with a set of inputs.
+    """
+
     def __init__(self, measurement_strategy: TargetMeasurementStrategy) -> None:
         self.measurement_strategy = measurement_strategy
 
@@ -31,17 +35,20 @@ class AbstractTarget(ABC):
         self._measurement_strategy = new_value
 
     @abstractmethod
-    def _run_target(self, range_parameters: t.Iterable[str]) -> t.Optional[float]:
+    def _run_target(self, inputs: t.Iterable[str]) -> t.Optional[float]:
         """
-        Runs the target and returns its output
+        Runs the target and returns its output. Should be internally idempotent, meaning that internal state changes
+        should be idempotent, but it is understood that not all possible actions are idempotent.
+
+        Should return a measurement generated from the target directly.
         """
 
-    def run(self, range_parameters: t.Iterable[Stringable]) -> float:
+    def run(self, inputs: t.Iterable[Stringable]) -> float:
         """
-        Runs the target and returns the ...
+        Runs the target and returns the measurement found.
         """
         time_before_run = time.time()
-        output = self._run_target([str(rp) for rp in range_parameters])
+        output = self._run_target([str(i) for i in inputs])
         duration = time.time() - time_before_run
 
         if self.measurement_strategy == TargetMeasurementStrategy.DURATION:

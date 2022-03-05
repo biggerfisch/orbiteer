@@ -14,12 +14,7 @@ class Orbiteer:
         "datetime_range": inputgenerators.DatetimeRangeGenerator,
     }
 
-    def __init__(
-        self,
-        *args: t.Any,
-        **kwargs: t.Any,
-    ) -> None:
-
+    def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         self.target = self.make_target(**self._filter_kwargs("target", **kwargs))
         self.optimizer = self.make_optimizer(**self._filter_kwargs("optimizer", **kwargs))
         self.inputgenerator = self.make_inputgenerator(**self._filter_kwargs("inputgenerator", **kwargs))
