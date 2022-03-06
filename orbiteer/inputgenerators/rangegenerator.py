@@ -4,7 +4,7 @@ import typing as t
 from abc import ABC
 from datetime import datetime, timedelta
 
-from typing_extensions import Protocol
+from typing_extensions import Final, Protocol
 
 from .base import AbstractInputGenerator
 
@@ -85,6 +85,13 @@ class NumericalRangeGenerator(AbstractRangeGenerator[RT]):
 
 
 class DatetimeRangeGenerator(AbstractRangeGenerator[datetime]):
+    MAGIC_USE_ISOFORMAT: Final = "MAGIC_USE_ISOFORMAT"
+
+    def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+        self.datetime_format = kwargs.pop("format", self.MAGIC_USE_ISOFORMAT)
+
+        super().__init__(*args, **kwargs)
+
     def _compute_next_input(self, next_interval: float) -> t.Tuple[datetime, datetime]:
         converted_interval = timedelta(seconds=next_interval)
 
@@ -97,10 +104,16 @@ class DatetimeRangeGenerator(AbstractRangeGenerator[datetime]):
 
         return self.left, self.right
 
+    def _convert_datetime_to_str(self, dt: datetime) -> str:
+        if self.datetime_format is self.MAGIC_USE_ISOFORMAT:
+            return dt.isoformat()
+        else:
+            return dt.strftime(self.datetime_format)
+
     def _coerce_input(self, next_input: t.Iterable[datetime]) -> t.List[str]:
         """
         Converts datetimes to pretty strings
 
         TODO make this more configurable
         """
-        return [i.isoformat() for i in next_input]
+        return [self._convert_datetime_to_str(i) for i in next_input]

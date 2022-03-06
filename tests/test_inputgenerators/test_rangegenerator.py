@@ -43,3 +43,20 @@ def test_compute_next_one_day_interval(datetime_generator: DatetimeRangeGenerato
     assert next_range[0] == jan_1.isoformat()
     assert next_range[1] == (jan_1 + timedelta(seconds=next_interval)).isoformat()
     assert not datetime_generator.is_done
+
+
+def test_compute_next_one_day_interval_custom_format(
+    datetime_generator: DatetimeRangeGenerator, jan_1: datetime
+) -> None:
+    custom_format = "%W -- %Y%m%dT%H%M%S.%f%Z"
+    datetime_generator.datetime_format = custom_format
+    next_interval = 1
+    # Force next value
+    datetime_generator.optimizer.min_value = next_interval
+    datetime_generator.optimizer.max_value = next_interval
+
+    next_range = list(datetime_generator.compute_next_input(1))
+
+    assert next_range[0] == jan_1.strftime(custom_format)
+    assert next_range[1] == (jan_1 + timedelta(seconds=next_interval)).strftime(custom_format)
+    assert not datetime_generator.is_done
