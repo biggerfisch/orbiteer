@@ -1,9 +1,11 @@
 [tool.poetry]
 name = "orbiteer"
-version = "0.1.0"
+version = "0.1.1"
 description = "An optimizing chunking command runner"
+readme = "README.md"
 authors = ["Avery Fischer <avery@averyjfischer.com>"]
 license = "MIT"
+repository = "https://github.com/biggerfisch/orbiteer"
 
 [tool.poetry.dependencies]
 python = ">=3.7,<4.0"
