@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "orbiteer"
 version = "0.1.0"
-description = ""
+description = "An optimizing chunking command runner"
 authors = ["Avery Fischer <avery@averyjfischer.com>"]
 license = "MIT"
 
