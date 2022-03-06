@@ -56,6 +56,13 @@ explicit_package_bases = true
 disallow_incomplete_defs = true
 disallow_untyped_decorators = true
 
+[[tool.mypy.overrides]]
+module = [
+    'matplotlib',
+    'matplotlib.pyplot',
+]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = [
