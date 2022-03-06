@@ -37,7 +37,7 @@ def datetime_generator(
 
 @pytest.fixture
 def command_target_output() -> CommandTarget:
-    return CommandTarget(TargetMeasurementStrategy.OUTPUT, ["echo"])
+    return CommandTarget(TargetMeasurementStrategy.OUTPUT, command_line=["echo"])
 
 
 @pytest.fixture
