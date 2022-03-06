@@ -18,9 +18,8 @@ class OrbiteerRunner:
         self.target = target
 
     def run(self) -> None:
-        first_range = self.inputgenerator.compute_next_input(None)
-        next_range = first_range
+        next_parameters = self.inputgenerator.compute_next_input(None)
 
         while not self.inputgenerator.is_done:
-            measurement = self.target.run(next_range)
-            next_range = self.inputgenerator.compute_next_input(measurement)
+            measurement = self.target.run(next_parameters)
+            next_parameters = self.inputgenerator.compute_next_input(measurement)

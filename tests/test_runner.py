@@ -56,6 +56,6 @@ def test_runner(runner: OrbiteerRunner, jan_1: datetime, feb_1: datetime) -> Non
         # total:    1m 3m 7m 15m 31m 1h3m 2h7m 4h15m 8h31m 17h3m 1d10h7m 2d20h15m 5d16h31m 11d9h3m  22d18h7m >30d
         assert target_run.call_count == 16
         # 0th call, 1st type of argument, 0th arg, first instance of the tuple
-        assert target_run.mock_calls[0][1][0][0] == jan_1
+        assert target_run.mock_calls[0][1][0][0] == jan_1.isoformat()
         # LAST call, 1st type of argument, 0th arg, last instance of the tuple
-        assert target_run.mock_calls[-1][1][0][1] == feb_1
+        assert target_run.mock_calls[-1][1][0][1] == feb_1.isoformat()
