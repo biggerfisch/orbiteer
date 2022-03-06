@@ -23,7 +23,12 @@ class AbstractTarget(ABC):
     Targets are anything that do something with a set of inputs.
     """
 
-    def __init__(self, measurement_strategy: TargetMeasurementStrategy = TargetMeasurementStrategy.DURATION) -> None:
+    def __init__(
+        self, measurement_strategy: t.Union[TargetMeasurementStrategy, str] = TargetMeasurementStrategy.DURATION
+    ) -> None:
+        if not isinstance(measurement_strategy, TargetMeasurementStrategy):
+            measurement_strategy = TargetMeasurementStrategy[measurement_strategy]
+
         self.measurement_strategy = measurement_strategy
 
     @property
@@ -59,4 +64,4 @@ class AbstractTarget(ABC):
             else:
                 return 0
         else:
-            raise RuntimeError("Invalid measurement strategy")
+            raise RuntimeError(f"Invalid measurement strategy: {self.measurement_strategy}")
