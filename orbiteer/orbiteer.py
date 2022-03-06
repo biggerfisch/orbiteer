@@ -14,6 +14,11 @@ class Orbiteer:
         "datetime_range": inputgenerators.DatetimeRangeGenerator,
     }
 
+    target_name_map = {
+        "command": targets.CommandTarget,
+        "callable": targets.CallableTarget,
+    }
+
     def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         self.target = self.make_target(**self._filter_kwargs("target", **kwargs))
         self.optimizer = self.make_optimizer(**self._filter_kwargs("optimizer", **kwargs))
@@ -29,8 +34,9 @@ class Orbiteer:
     def make_target(self, **kwargs: t.Any) -> targets.AbstractTarget:
         target_type = self._pop_required_kwarg_or_raise("type", kwargs, "command")
 
-        if target_type.lower() == "command":
-            target_class = targets.CommandTarget
+        name = target_type.lower()
+        if name in self.target_name_map:
+            target_class = self.target_name_map[name]
         else:
             raise RuntimeError(f"Invalid target_type: {type}")
 
