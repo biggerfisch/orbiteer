@@ -41,6 +41,7 @@ A tool to control time-range based scripts, programs, and more.
 - :white_check_mark: Run command line
   - :white_check_mark: Args at end of command string
   - :red_square: Command line formatting
+- :white_check_mark: Python Callable
 - :red_square: Call URL
   - :red_square: Via request parameters
   - :red_square: Via request body
