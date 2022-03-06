@@ -43,12 +43,12 @@ class AbstractTarget(ABC):
         Should return a measurement generated from the target directly.
         """
 
-    def run(self, inputs: t.Iterable[Stringable]) -> float:
+    def run(self, inputs: t.Iterable[str]) -> float:
         """
         Runs the target and returns the measurement found.
         """
         time_before_run = time.time()
-        output = self._run_target([str(i) for i in inputs])
+        output = self._run_target(inputs)
         duration = time.time() - time_before_run
 
         if self.measurement_strategy == TargetMeasurementStrategy.DURATION:

@@ -96,3 +96,11 @@ class DatetimeRangeGenerator(AbstractRangeGenerator[datetime]):
             self.left = max(self.right - converted_interval, self.end)
 
         return self.left, self.right
+
+    def _coerce_input(self, next_input: t.Iterable[datetime]) -> t.List[str]:
+        """
+        Converts datetimes to pretty strings
+
+        TODO make this more configurable
+        """
+        return [i.isoformat() for i in next_input]

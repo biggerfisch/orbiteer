@@ -40,6 +40,6 @@ def test_compute_next_one_day_interval(datetime_generator: DatetimeRangeGenerato
 
     next_range = list(datetime_generator.compute_next_input(1))
 
-    assert next_range[0] == jan_1
-    assert next_range[1] == jan_1 + timedelta(seconds=next_interval)
+    assert next_range[0] == jan_1.isoformat()
+    assert next_range[1] == (jan_1 + timedelta(seconds=next_interval)).isoformat()
     assert not datetime_generator.is_done
