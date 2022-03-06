@@ -15,14 +15,11 @@ class RatioOptimizer(AbstractOptimizer):
 
     def __init__(
         self,
-        goal: float,
-        first_value: float,
-        max_value: t.Optional[float] = None,
-        min_value: t.Optional[float] = None,
+        *args: t.Any,
         damper: float = 1.0,  # Should be less than 1.0 to have damping effect
+        **kwargs: t.Any,
     ) -> None:
-        # We need to specify all parent args in order for generic type checking to work
-        super().__init__(goal, first_value, max_value, min_value)
+        super().__init__(*args, **kwargs)
 
         self.damper = damper
 
