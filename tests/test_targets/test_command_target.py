@@ -7,12 +7,12 @@ from orbiteer.targets import CommandTarget, TargetMeasurementStrategy
 
 @pytest.fixture
 def command_target_duration() -> CommandTarget:
-    return CommandTarget(TargetMeasurementStrategy.DURATION, ["echo"])
+    return CommandTarget(TargetMeasurementStrategy.DURATION, command_line=["echo"])
 
 
 @pytest.fixture
 def command_target_output() -> CommandTarget:
-    return CommandTarget(TargetMeasurementStrategy.OUTPUT, ["echo"])
+    return CommandTarget(TargetMeasurementStrategy.OUTPUT, command_line=["echo"])
 
 
 def test_command_target_duration_time_measured(command_target_duration: CommandTarget) -> None:
@@ -33,3 +33,8 @@ def test_run_bad_measurement_strat_raises(command_target_output: CommandTarget) 
 
     with pytest.raises(Exception):
         command_target_output.run(["1"])
+
+
+def test_raises_with_no_command_line() -> None:
+    with pytest.raises(ValueError):
+        CommandTarget(TargetMeasurementStrategy.OUTPUT)

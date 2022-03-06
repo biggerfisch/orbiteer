@@ -9,10 +9,11 @@ from .base import AbstractTarget, TargetMeasurementStrategy
 class CommandTarget(AbstractTarget):
     def __init__(
         self,
-        measurement_strategy: TargetMeasurementStrategy = TargetMeasurementStrategy.DURATION,
+        *args: t.Any,
         command_line: t.Optional[t.List[str]] = None,
+        **kwargs: t.Any,
     ) -> None:
-        super().__init__(measurement_strategy)
+        super().__init__(*args, **kwargs)
 
         if command_line is None:
             raise ValueError("command_line must be present")
