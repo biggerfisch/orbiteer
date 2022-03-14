@@ -1,4 +1,7 @@
-all: lint test
+all: setup lint test
+
+setup:
+	@./scripts/setup.sh
 
 test:
 	@./scripts/test.sh
@@ -9,4 +12,4 @@ lint:
 format:
 	@./scripts/format.sh
 
-.PHONY: all test lint format
+.PHONY: all setup test lint format
