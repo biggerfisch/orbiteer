@@ -2,6 +2,12 @@
 
 A tool to control time-range based scripts, programs, and more.
 
+
+# Example Use-Cases
+
+[See the Wiki](https://github.com/biggerfisch/orbiteer/wiki/Use-Cases)
+
+
 # Goals
 
 1. Provide a consistent, elegant way of running a script repeatedly with varied inputs in a useful way, such as fitting a goal run-time.
@@ -67,6 +73,14 @@ A tool to control time-range based scripts, programs, and more.
 - :yellow_square: Erroring out
 - :red_square: N% completion
 - :red_square: Time passed
+
+### Progress tracking & resumption
+- :red_square: In a local file
+  - :red_square: Tracking
+  - :red_square: Resumption
+- :red_square: In a database
+  - :red_square: Tracking
+  - :red_square: Resumption
 
 
 # Development
